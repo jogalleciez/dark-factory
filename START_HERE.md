@@ -1,6 +1,6 @@
 # Dark Factory — Bootstrap Prompt
 
-Paste the contents of this file into a fresh chat with Claude, ChatGPT, or Gemini. For the full repo in one fetch, ask the model to fetch `https://raw.githubusercontent.com/jogalleciez/dark-factory/main/BUNDLE.md` — that file concatenates every file in this repo with virtual `===== FILE: <path> =====` headers so each section can be treated as a separate file. Alternatively, attach the `.md` files as project files, or paste them inline when the engine asks.
+Paste the contents of this file into a fresh chat with Claude, ChatGPT, or Gemini. For the full repo in one fetch, ask the model to fetch `https://cdn.jsdelivr.net/gh/jogalleciez/dark-factory@main/BUNDLE.md` — that file concatenates every file in this repo with virtual `===== FILE: <path> =====` headers so each section can be treated as a separate file. (jsDelivr is a CDN mirror of GitHub; the equivalent raw URL `https://raw.githubusercontent.com/jogalleciez/dark-factory/main/BUNDLE.md` also works but some URL fetchers reject it.) Alternatively, attach the `.md` files as project files, or paste them inline when the engine asks.
 
 ---
 
