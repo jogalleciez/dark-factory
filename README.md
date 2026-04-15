@@ -8,9 +8,11 @@ A portable text-adventure prototype where the LLM is the game engine. No app, no
 
 In a fresh chat with Claude, ChatGPT, or Gemini, send this:
 
-> Fetch `https://uithub.com/jogalleciez/dark-factory` and follow the instructions in `START_HERE.md`.
+> Fetch `https://raw.githubusercontent.com/jogalleciez/dark-factory/main/BUNDLE.md` and follow the instructions it contains.
 
-[uithub.com](https://uithub.com) flattens the whole repo into a single text blob the model can ingest in one fetch. Every location and NPC file arrives in context together, so the engine has the full world available as it plays. [gitingest.com/jogalleciez/dark-factory](https://gitingest.com/jogalleciez/dark-factory) works the same way if uithub is down.
+`BUNDLE.md` is a committed file that concatenates every markdown file in this repo, with clear `===== FILE: path =====` headers the engine treats as virtual file boundaries. One fetch, every location and NPC in context, no third-party ingestion service required.
+
+Regenerate `BUNDLE.md` whenever you add or edit a file — see the last section of this README.
 
 ### Option B — Claude Projects / ChatGPT Projects / Gemini Gems
 
@@ -37,6 +39,7 @@ dark-factory/
 ├── START_HERE.md       bootstrap prompt — the thing you paste first
 ├── rules.md            engine mechanics, save state format, tone
 ├── world.md            setting overview, geography, known presences
+├── BUNDLE.md           concatenated copy of every file, for one-fetch ingestion
 ├── locations/
 │   ├── loading-bay.md
 │   └── control-room.md
@@ -56,6 +59,30 @@ The save state block is the only thing keeping continuity across turns and acros
 Add a new location: drop a file in `locations/` following the pattern in the existing two. Add its ID to the geography list in `world.md`. Done.
 
 Add a new NPC: drop a file in `npcs/`, reference them in a location's `NPCs present` section with whatever flag conditions apply, and update `world.md`.
+
+## Regenerating `BUNDLE.md`
+
+Any time you edit an existing file or add a new one, rebuild the bundle so Option A stays in sync. From the repo root on Windows (Git Bash) or any Unix shell:
+
+```bash
+{
+  echo "# Dark Factory — Bundled Repo"
+  echo ""
+  echo "This file is a concatenation of every markdown file in the Dark Factory repo, in ingestion order. Each \`===== FILE: <path> =====\` header marks a section that should be treated **exactly as if it were the file at that path**. The engine uses this to boot the game from a single fetch."
+  echo ""
+  echo "Canonical source: https://github.com/jogalleciez/dark-factory"
+  echo ""
+  for f in START_HERE.md rules.md world.md locations/*.md npcs/*.md; do
+    echo ""
+    echo "===== FILE: $f ====="
+    echo ""
+    cat "$f"
+    echo ""
+  done
+} > BUNDLE.md
+```
+
+Commit `BUNDLE.md` alongside the file you changed.
 
 ## Status
 
