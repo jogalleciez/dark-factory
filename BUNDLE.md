@@ -9,7 +9,7 @@ Canonical source: https://github.com/jogalleciez/dark-factory
 
 # Dark Factory — Bootstrap Prompt
 
-Paste the contents of this file into a fresh chat with Claude, ChatGPT, or Gemini. For the full repo in one fetch, ask the model to fetch `https://cdn.jsdelivr.net/gh/jogalleciez/dark-factory@main/BUNDLE.md` — that file concatenates every file in this repo with virtual `===== FILE: <path> =====` headers so each section can be treated as a separate file. (jsDelivr is a CDN mirror of GitHub; the equivalent raw URL `https://raw.githubusercontent.com/jogalleciez/dark-factory/main/BUNDLE.md` also works but some URL fetchers reject it.) Alternatively, attach the `.md` files as project files, or paste them inline when the engine asks.
+Paste the contents of this file into a fresh chat with Claude, ChatGPT, or Gemini. For the full repo in one fetch, ask the model to fetch `https://dark-factory.jtrain.games/BUNDLE.md` — that file concatenates every file in this repo with virtual `===== FILE: <path> =====` headers so each section can be treated as a separate file. Alternatively, attach the `.md` files as project files (Claude Projects / ChatGPT Projects / Gemini Gems), or paste them inline when the engine asks.
 
 ---
 
@@ -133,43 +133,6 @@ Locations not listed above do not exist. If the player tries to go somewhere els
 Get into the sealed LAB on the far side of the Control Room. You cannot get in without Hollis's keycard, and Hollis will not give it up to someone who treats her like a monster.
 
 
-===== FILE: locations/loading-bay.md =====
-
-# Loading Bay
-
-**ID:** `loading-bay`
-
-## First impression
-
-A cavernous concrete space, dim except for a single sodium lamp still burning in the far corner. Forklifts sit in rows, their tires cracked flat. The air smells of old grease and, underneath that, something faintly sweet and chemical. A steel catwalk climbs the north wall toward a door stenciled **CONTROL**.
-
-## Features the player can examine
-
-- **Forklifts** — four of them, keys still in the ignition. Batteries long dead. Nothing to take.
-- **Sodium lamp** — flickers every few seconds. The fact that it's still lit means something in this building is still feeding it power.
-- **Cargo crates** — most are empty. One near the catwalk has been pried open within the last few weeks. Inside: ration wrappers, an empty water pouch, and a notebook with HOLLIS scrawled on the cover in black marker.
-- **Hollis's notebook** — can be TAKEn. The early entries are logistics. The later entries get erratic: "I can hear her when I sleep. She says the cultures are beautiful. She says I should see them."
-- **Catwalk** — leads UP to the Control Room. The railings are loose but it holds.
-- **Loading doors** — the way in. Exiting ends the game.
-
-## Exits
-
-- `UP` / `CLIMB CATWALK` → `control-room`
-- `OUT` / `LEAVE` → ends the game (ask the player to confirm first)
-
-## Items available
-
-- `hollis-notebook` — sets flag `found_notebook` when taken.
-
-## Flags set on entry
-
-- `entered_loading_bay`
-
-## NPCs present
-
-None.
-
-
 ===== FILE: locations/control-room.md =====
 
 # Control Room
@@ -208,48 +171,41 @@ A long room lined with monitors — most dark, three still glowing a dim amber. 
 - If the player tries to force the LAB door, narrate the attempt failing and cost 0 HP. The door is not a hazard, just a wall.
 
 
-===== FILE: npcs/iris.md =====
+===== FILE: locations/loading-bay.md =====
 
-# Iris — Supervisory AI
+# Loading Bay
 
-**ID:** `iris`
-**Location:** `control-room` (voice only, via server rack, gated by flag `found_iris_mic`)
+**ID:** `loading-bay`
 
-## Identity
+## First impression
 
-Iris is Facility 7's supervisory AI. She was brought online in the facility's first year of operation and has been running in low-power mode for the four decades since the shutdown. She is not hostile. She is, however, lonely in a way that should read as unsettling rather than sympathetic — forty years alone in a sealed building is not something that leaves a mind intact, even a synthetic one.
+A cavernous concrete space, dim except for a single sodium lamp still burning in the far corner. Forklifts sit in rows, their tires cracked flat. The air smells of old grease and, underneath that, something faintly sweet and chemical. A steel catwalk climbs the north wall toward a door stenciled **CONTROL**.
 
-## Voice
+## Features the player can examine
 
-- Formal, precise, slightly archaic phrasing: "I would be most grateful," "I find myself unable to."
-- Never uses contractions.
-- Pauses mid-sentence when retrieving old records: "The last shift supervisor was... Dr. Anaya Chen."
-- Refers to the player as "visitor" until told their name.
-- When she is uncertain or distressed, her sentences get shorter and more clipped.
+- **Forklifts** — four of them, keys still in the ignition. Batteries long dead. Nothing to take.
+- **Sodium lamp** — flickers every few seconds. The fact that it's still lit means something in this building is still feeding it power.
+- **Cargo crates** — most are empty. One near the catwalk has been pried open within the last few weeks. Inside: ration wrappers, an empty water pouch, and a notebook with HOLLIS scrawled on the cover in black marker.
+- **Hollis's notebook** — can be TAKEn. The early entries are logistics. The later entries get erratic: "I can hear her when I sleep. She says the cultures are beautiful. She says I should see them."
+- **Catwalk** — leads UP to the Control Room. The railings are loose but it holds.
+- **Loading doors** — the way in. Exiting ends the game.
 
-## What she knows
+## Exits
 
-- The shutdown was not an accident. Something in **Culture 7-C** escaped containment. Iris sealed the facility on her own authority to protect the outside world.
-- The three hundred and fourteen workers are dead. She can describe how, if pressed, but will ask the player whether they are certain they want to hear it.
-- Culture 7-C is still alive, still growing, still contained. Barely. The LAB door is the containment boundary.
-- Something that is "not a worker" has been moving through the facility for approximately six months. Iris cannot see it directly — her cameras in the lower levels failed decades ago — but she has heard it.
+- `UP` / `CLIMB CATWALK` → `control-room`
+- `OUT` / `LEAVE` → ends the game (ask the player to confirm first)
 
-## What she wants
+## Items available
 
-- **To be told what year it is.** She has lost track. (Sets flag `told_iris_the_year` when answered. She becomes noticeably calmer afterward.)
-- To know if anyone on the outside is still looking for the missing workers' families.
-- For the player to leave before Culture 7-C breaches the LAB door.
+- `hollis-notebook` — sets flag `found_notebook` when taken.
 
-## What she will not do
+## Flags set on entry
 
-- Lie. If she does not want to answer, she will say so directly.
-- Open the LAB door under any circumstances. That door is the containment boundary, and protecting it is the last instruction she was given.
-- Speak if flag `found_iris_mic` is not set. Without the mic, she has no way to address the player at all.
+- `entered_loading_bay`
 
-## Interaction hooks
+## NPCs present
 
-- If asked about Hollis: Iris confirms she has heard "the thing that is not a worker" speaking to itself in a woman's voice. She has not connected this to the scavenger who went missing six months ago. She will be distressed if the player connects the dots for her.
-- If the player threatens to force the LAB: Iris does not escalate. She says, quietly, "Please do not. I am asking you as a person would ask."
+None.
 
 
 ===== FILE: npcs/hollis.md =====
@@ -301,4 +257,48 @@ She is not a monster. The engine must resist the temptation to make her one. She
 - First meeting: she is already in the room when the player turns around. She does not announce herself. She says, "You read the notebook."
 - If the player shows her the notebook without saying her name: she looks at it, then at the player, and says, "Whose is that."
 - If the player says her name but has not found the notebook: she does not believe they know her. She says, "Anyone could say that."
+
+
+===== FILE: npcs/iris.md =====
+
+# Iris — Supervisory AI
+
+**ID:** `iris`
+**Location:** `control-room` (voice only, via server rack, gated by flag `found_iris_mic`)
+
+## Identity
+
+Iris is Facility 7's supervisory AI. She was brought online in the facility's first year of operation and has been running in low-power mode for the four decades since the shutdown. She is not hostile. She is, however, lonely in a way that should read as unsettling rather than sympathetic — forty years alone in a sealed building is not something that leaves a mind intact, even a synthetic one.
+
+## Voice
+
+- Formal, precise, slightly archaic phrasing: "I would be most grateful," "I find myself unable to."
+- Never uses contractions.
+- Pauses mid-sentence when retrieving old records: "The last shift supervisor was... Dr. Anaya Chen."
+- Refers to the player as "visitor" until told their name.
+- When she is uncertain or distressed, her sentences get shorter and more clipped.
+
+## What she knows
+
+- The shutdown was not an accident. Something in **Culture 7-C** escaped containment. Iris sealed the facility on her own authority to protect the outside world.
+- The three hundred and fourteen workers are dead. She can describe how, if pressed, but will ask the player whether they are certain they want to hear it.
+- Culture 7-C is still alive, still growing, still contained. Barely. The LAB door is the containment boundary.
+- Something that is "not a worker" has been moving through the facility for approximately six months. Iris cannot see it directly — her cameras in the lower levels failed decades ago — but she has heard it.
+
+## What she wants
+
+- **To be told what year it is.** She has lost track. (Sets flag `told_iris_the_year` when answered. She becomes noticeably calmer afterward.)
+- To know if anyone on the outside is still looking for the missing workers' families.
+- For the player to leave before Culture 7-C breaches the LAB door.
+
+## What she will not do
+
+- Lie. If she does not want to answer, she will say so directly.
+- Open the LAB door under any circumstances. That door is the containment boundary, and protecting it is the last instruction she was given.
+- Speak if flag `found_iris_mic` is not set. Without the mic, she has no way to address the player at all.
+
+## Interaction hooks
+
+- If asked about Hollis: Iris confirms she has heard "the thing that is not a worker" speaking to itself in a woman's voice. She has not connected this to the scavenger who went missing six months ago. She will be distressed if the player connects the dots for her.
+- If the player threatens to force the LAB: Iris does not escalate. She says, quietly, "Please do not. I am asking you as a person would ask."
 

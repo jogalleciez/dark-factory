@@ -8,9 +8,9 @@ A portable text-adventure prototype where the LLM is the game engine. No app, no
 
 In a fresh chat with Claude, ChatGPT, or Gemini, send this:
 
-> Fetch `https://cdn.jsdelivr.net/gh/jogalleciez/dark-factory@main/BUNDLE.md` and follow the instructions it contains.
+> Fetch `https://dark-factory.jtrain.games/BUNDLE.md` and follow the instructions it contains.
 
-`BUNDLE.md` is a committed file that concatenates every markdown file in this repo, with clear `===== FILE: path =====` headers the engine treats as virtual file boundaries. One fetch, every location and NPC in context. The URL is served through [jsDelivr](https://www.jsdelivr.com/), a public CDN that mirrors GitHub with a proper `text/markdown` content-type — which Gemini's URL context and other URL fetchers accept where they sometimes reject `raw.githubusercontent.com` directly. Backup URL if jsDelivr is down: `https://raw.githack.com/jogalleciez/dark-factory/main/BUNDLE.md`.
+`BUNDLE.md` is a committed file that concatenates every markdown file in this repo, with clear `===== FILE: path =====` headers the engine treats as virtual file boundaries. One fetch, every location and NPC in context. The URL is served via Cloudflare Pages with `Content-Type: text/html` — accepted by Gemini's URL context, Claude, ChatGPT, and every other LLM URL fetcher. The deploy is automatic on every push to `main`; cache max-age is 5 minutes so bundles never go stale.
 
 **Tip for stubborn models:** if a model runs a web search instead of actually fetching the URL (you'll see it cite an unrelated repo), force the issue:
 > Use your URL fetch / browsing tool to GET this exact URL and return its raw contents. Do not search. Quote the first line of the file (`# Dark Factory — Bundled Repo`) before doing anything else.
