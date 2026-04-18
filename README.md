@@ -8,14 +8,14 @@ A portable text-adventure prototype where the LLM is the game engine. No app, no
 
 In a fresh chat with Claude, ChatGPT, or Gemini, send this:
 
-> Fetch `https://dark-factory.jtrain.games/BUNDLE.md` and follow the instructions it contains.
+> Read the full text of `https://dark-factory.jtrain.games/START_HERE.md` and follow the instructions it contains.
 
-`BUNDLE.md` is a committed file that concatenates every markdown file in this repo, with clear `===== FILE: path =====` headers the engine treats as virtual file boundaries. One fetch, every location and NPC in context. The URL is served via Cloudflare Pages with `Content-Type: text/html` — accepted by Gemini's URL context, Claude, ChatGPT, and every other LLM URL fetcher. The deploy is automatic on every push to `main`; cache max-age is 5 minutes so bundles never go stale.
+`START_HERE.md` tells the engine to immediately fetch `rules.md`, `world.md`, and the starting location before play begins — and to fetch location and NPC files on demand as the player explores. All files are served via Cloudflare Pages with `Content-Type: text/html`; deploy is automatic on every push to `main`, cache max-age 5 minutes.
 
-**Tip for stubborn models:** if a model runs a web search instead of actually fetching the URL (you'll see it cite an unrelated repo), force the issue:
-> Use your URL fetch / browsing tool to GET this exact URL and return its raw contents. Do not search. Quote the first line of the file (`# Dark Factory — Bundled Repo`) before doing anything else.
+**Tip for stubborn models:** if a model runs a web search instead of actually reading the URL (you'll see it cite an unrelated repo), force the issue:
+> Use your URL fetch / browsing tool to GET this exact URL and return its raw contents. Do not search. Quote the first line of the file (`# Dark Factory — Bootstrap Prompt`) before doing anything else.
 
-Regenerate `BUNDLE.md` whenever you add or edit a file — see the last section of this README.
+`BUNDLE.md` (all files concatenated into one) is still available at `https://dark-factory.jtrain.games/BUNDLE.md` if you prefer a single-fetch approach.
 
 ### Option B — Claude Projects / ChatGPT Projects / Gemini Gems
 
