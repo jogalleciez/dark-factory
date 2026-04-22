@@ -1,3 +1,23 @@
 /BUNDLE.md
   Content-Type: text/html; charset=utf-8
   Cache-Control: public, max-age=300
+
+/START_HERE.md
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/rules.md
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/world.md
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/locations/*
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/npcs/*
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=300
