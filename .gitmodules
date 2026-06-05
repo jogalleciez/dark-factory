@@ -1,0 +1,3 @@
+[submodule "devvit"]
+	path = devvit
+	url = https://github.com/jogalleciez/dark-factory-devvit.git
