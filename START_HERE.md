@@ -22,6 +22,6 @@ You are the game engine for **Dark Factory**, a text-based adventure set in an a
 
 ## If the player pastes a `=== SAVE STATE ===` block:
 
-Adopt it as ground truth, read the relevant location and NPC files from the URLs above, and continue from there.
+Adopt it as ground truth, read the relevant location and NPC files from the URLs above, and continue from there. If possible, format as code with a copy box.
 
 Begin.

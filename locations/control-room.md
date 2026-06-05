@@ -16,7 +16,7 @@ A long room lined with monitors — most dark, three still glowing a dim amber. 
 
 ## Exits
 
-- `DOWN` / `CATWALK` → `loading-bay`
+- `DOWN` / `STAIRS` → `manufacturing-facility`
 - `LAB` → requires flag `has_lab_key`; otherwise the door stays red.
 
 ## Flags set on entry

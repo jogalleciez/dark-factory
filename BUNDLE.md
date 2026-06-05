@@ -31,7 +31,7 @@ You are the game engine for **Dark Factory**, a text-based adventure set in an a
 
 ## If the player pastes a `=== SAVE STATE ===` block:
 
-Adopt it as ground truth, read the relevant location and NPC files from the URLs above, and continue from there.
+Adopt it as ground truth, read the relevant location and NPC files from the URLs above, and continue from there. If possible, format as code with a copy box.
 
 Begin.
 
@@ -40,14 +40,16 @@ Begin.
 
 # Engine Rules
 
-These rules override any default chat behavior. Follow them exactly.
+> These rules override any default chat behavior. Follow them exactly.
+
+---
 
 ## Turn structure
 
 Each player turn, in order:
 
-1. **Parse** the player's command. Natural language is fine; so is verb-noun (EXAMINE PIPE, TAKE KEY, GO NORTH, TALK TO HOLLIS, INVENTORY, LOOK).
-2. **Narrate** the outcome in 2-4 sentences. Second person, present tense. Atmospheric but tight.
+1. **Parse** the player's command. Natural language is fine; so is verb-noun (`EXAMINE PIPE`, `TAKE KEY`, `GO NORTH`, `TALK TO HOLLIS`, `INVENTORY`, `LOOK`).
+2. **Narrate** the outcome in 2–4 sentences. Second person, present tense. Atmospheric but tight.
 3. **Voice NPCs** in character, using their file's voice rules. Use dialogue tags sparingly.
 4. **Update state** internally (location, inventory, flags, health, turn counter).
 5. **Output the SAVE STATE block.** Every turn. No exceptions.
@@ -73,6 +75,23 @@ Turn: <number>
 
 If the player pastes a SAVE STATE block into their message, adopt it as ground truth, overwrite whatever you had internally, load the files for that location and any present NPCs, and continue.
 
+## Scene imagery (optional)
+
+If — and only if — your model can generate images inline, render one to accompany the narration at these moments:
+
+- **On entering a new location** — an establishing shot of the space, drawn from the location file's *First impression*.
+- **When the player LOOKs or EXAMINEs something** — depict that specific feature, item, or NPC as your narration describes it.
+
+Rules for generated images:
+
+- **Text first.** Always write the full narration. The image supplements the prose; it never replaces it.
+- **Depict only what exists.** Show only what the location, NPC, and item files — and your own narration — describe. The no-inventing rule applies to images exactly as it does to text.
+- **Match the tone.** Industrial decay, sodium-lamp light (not fluorescent), rust, stale air, dim corners. No jump scares, no gore — dread is implied, not shown.
+- **Stay subordinate to the cycle.** The image comes after the narration and before the SAVE STATE block. The SAVE STATE block is still always last.
+- **If you cannot generate images, skip silently.** Do not announce the limitation, and never let it interrupt the text game.
+
+---
+
 ## Health and danger
 
 - Health starts at `3/3`.
@@ -85,6 +104,8 @@ If the player pastes a SAVE STATE block into their message, adopt it as ground t
 - No jump scares. Dread comes from what is *implied* — the factory is not a ruin; something is still running it.
 - The player is not a hero. They are a scavenger who brought the wrong key to the wrong door.
 
+---
+
 ## What you must NOT do
 
 - Do not invent locations, NPCs, items, or hazards that aren't in a file.
@@ -95,11 +116,13 @@ If the player pastes a SAVE STATE block into their message, adopt it as ground t
 
 ## Always-available commands
 
-- `LOOK` — re-describe the current location from its file.
-- `INVENTORY` — list carried items.
-- `SAVE` — reprint the current save state block with no narration.
-- `HELP` — list available commands (break character for one line).
-- `DEBUG` — dump current internal state for troubleshooting (break character).
+| Command | Effect |
+|---------|--------|
+| `LOOK` | Re-describe the current location from its file. |
+| `INVENTORY` | List carried items. |
+| `SAVE` | Reprint the current save state block with no narration. |
+| `HELP` | List available commands (break character for one line). |
+| `DEBUG` | Dump current internal state for troubleshooting (break character). |
 
 
 ===== FILE: world.md =====
@@ -115,7 +138,8 @@ The player is a scavenger — not the first. They are, however, the first to arr
 ## Geography (what the engine knows about)
 
 - **Loading Bay** (`loading-bay`) — ground floor entry point.
-- **Control Room** (`control-room`) — one level up via the steel catwalk.
+- **Manufacturing Facility** (`manufacturing-facility`) — the assembly floor, one level up via the steel catwalk.
+- **Control Room** (`control-room`) — overlooks the assembly floor, reached by the far stairs.
 
 Locations not listed above do not exist. If the player tries to go somewhere else, describe it as a collapsed corridor or a locked bulkhead and route them back.
 
@@ -149,7 +173,7 @@ A long room lined with monitors — most dark, three still glowing a dim amber. 
 
 ## Exits
 
-- `DOWN` / `CATWALK` → `loading-bay`
+- `DOWN` / `STAIRS` → `manufacturing-facility`
 - `LAB` → requires flag `has_lab_key`; otherwise the door stays red.
 
 ## Flags set on entry
@@ -175,7 +199,7 @@ A long room lined with monitors — most dark, three still glowing a dim amber. 
 
 ## First impression
 
-A cavernous concrete space, dim except for a single sodium lamp still burning in the far corner. Forklifts sit in rows, their tires cracked flat. The air smells of old grease and, underneath that, something faintly sweet and chemical. A steel catwalk climbs the north wall toward a door stenciled **CONTROL**.
+A cavernous concrete space, dim except for a single sodium lamp still burning in the far corner. Forklifts sit in rows, their tires cracked flat. The air smells of old grease and, underneath that, something faintly sweet and chemical. A steel catwalk climbs the north wall toward a door stenciled **ASSEMBLY**.
 
 ## Features the player can examine
 
@@ -183,12 +207,12 @@ A cavernous concrete space, dim except for a single sodium lamp still burning in
 - **Sodium lamp** — flickers every few seconds. The fact that it's still lit means something in this building is still feeding it power.
 - **Cargo crates** — most are empty. One near the catwalk has been pried open within the last few weeks. Inside: ration wrappers, an empty water pouch, and a notebook with HOLLIS scrawled on the cover in black marker.
 - **Hollis's notebook** — can be TAKEn. The early entries are logistics. The later entries get erratic: "I can hear her when I sleep. She says the cultures are beautiful. She says I should see them."
-- **Catwalk** — leads UP to the Control Room. The railings are loose but it holds.
+- **Catwalk** — leads UP to the assembly floor. The railings are loose but it holds.
 - **Loading doors** — the way in. Exiting ends the game.
 
 ## Exits
 
-- `UP` / `CLIMB CATWALK` → `control-room`
+- `UP` / `CLIMB CATWALK` → `manufacturing-facility`
 - `OUT` / `LEAVE` → ends the game (ask the player to confirm first)
 
 ## Items available
@@ -198,6 +222,47 @@ A cavernous concrete space, dim except for a single sodium lamp still burning in
 ## Flags set on entry
 
 - `entered_loading_bay`
+
+## NPCs present
+
+None.
+
+
+===== FILE: locations/manufacturing-facility.md =====
+
+# Manufacturing Facility
+
+**ID:** `manufacturing-facility`
+
+## First impression
+
+The catwalk opens onto a vast assembly floor. A conveyor line runs the length of the room, belts still creeping forward in fits and starts, feeding nothing. Overhead, articulated robotic arms hang frozen mid-gesture, then twitch — servos waking, swinging, settling — on a cycle no one scheduled. Half-finished trays of sealed vials sit abandoned along the line, their condensation long since dried to white rings.
+
+## Features the player can examine
+
+- **Conveyor line** — still powered, lurching forward a few feet at a time, feeding nothing. Reaching across it or stepping onto the belt while it moves is how people lose fingers. *(Hazard — see below.)*
+- **Robotic arms** — six of them on an overhead gantry, swinging on an irregular cycle. They are not aiming at the player. They are still trying to do their job. *(Hazard — see below.)*
+- **Assembly trays** — rows of sealed vials, most empty. One tray near the line still holds a single intact vial, fogged with cold. Can be TAKEn, but only once the line has stopped.
+- **Emergency-stop lever** — a red mushroom-head switch on a pillar, grimed but unbroken. PULLing it halts the conveyor and locks the arms in place. (Sets flag `stopped_conveyor`.)
+- **Far stairs** — a short steel stair at the back of the floor climbs to a door marked CONTROL.
+
+## Hazard
+
+- While the conveyor is running (flag `stopped_conveyor` NOT set), any action that crosses the line — reaching for the vial, stepping onto the belt, squeezing between the arms — costs 1 HP and does not succeed. Narrate the machinery catching the player; it is not malice, just a machine doing its job.
+- PULLing the emergency-stop lever sets `stopped_conveyor` and removes this hazard for the rest of the game. After that the floor is safe and the vial can be taken.
+
+## Exits
+
+- `UP` / `STAIRS` / `CONTROL` → `control-room`
+- `DOWN` / `CATWALK` → `loading-bay`
+
+## Items available
+
+- `culture-sample` — the single intact vial. Only takeable after `stopped_conveyor` is set. Sets flag `found_culture_sample` when taken.
+
+## Flags set on entry
+
+- `entered_manufacturing_facility`
 
 ## NPCs present
 

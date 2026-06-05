@@ -9,7 +9,8 @@ The player is a scavenger — not the first. They are, however, the first to arr
 ## Geography (what the engine knows about)
 
 - **Loading Bay** (`loading-bay`) — ground floor entry point.
-- **Control Room** (`control-room`) — one level up via the steel catwalk.
+- **Manufacturing Facility** (`manufacturing-facility`) — the assembly floor, one level up via the steel catwalk.
+- **Control Room** (`control-room`) — overlooks the assembly floor, reached by the far stairs.
 
 Locations not listed above do not exist. If the player tries to go somewhere else, describe it as a collapsed corridor or a locked bulkhead and route them back.
 
